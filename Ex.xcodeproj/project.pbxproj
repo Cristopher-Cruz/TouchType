@@ -11,7 +11,7 @@
 		E3B2008529DFF06600AE5FEF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B2008429DFF06600AE5FEF /* ViewController.swift */; };
 		E3B2008729DFF06800AE5FEF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E3B2008629DFF06800AE5FEF /* Assets.xcassets */; };
 		E3B2008A29DFF06800AE5FEF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E3B2008829DFF06800AE5FEF /* Main.storyboard */; };
-		E3B2009829DFF10D00AE5FEF /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B2009729DFF10D00AE5FEF /* View.swift */; };
+		E3B2009C29E03E5000AE5FEF /* MyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B2009B29E03E5000AE5FEF /* MyView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,7 +21,7 @@
 		E3B2008629DFF06800AE5FEF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E3B2008929DFF06800AE5FEF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E3B2008B29DFF06800AE5FEF /* Ex.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Ex.entitlements; sourceTree = "<group>"; };
-		E3B2009729DFF10D00AE5FEF /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
+		E3B2009B29E03E5000AE5FEF /* MyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MyView.swift; path = ../../../../MyView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,7 +56,7 @@
 			children = (
 				E3B2008229DFF06600AE5FEF /* AppDelegate.swift */,
 				E3B2008429DFF06600AE5FEF /* ViewController.swift */,
-				E3B2009729DFF10D00AE5FEF /* View.swift */,
+				E3B2009B29E03E5000AE5FEF /* MyView.swift */,
 				E3B2008629DFF06800AE5FEF /* Assets.xcassets */,
 				E3B2008829DFF06800AE5FEF /* Main.storyboard */,
 				E3B2008B29DFF06800AE5FEF /* Ex.entitlements */,
@@ -134,9 +134,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E3B2009C29E03E5000AE5FEF /* MyView.swift in Sources */,
 				E3B2008529DFF06600AE5FEF /* ViewController.swift in Sources */,
 				E3B2008329DFF06600AE5FEF /* AppDelegate.swift in Sources */,
-				E3B2009829DFF10D00AE5FEF /* View.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

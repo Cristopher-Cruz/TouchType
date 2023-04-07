@@ -10,7 +10,6 @@ import Cocoa
 class ViewController: NSViewController {
     
     
-    
     @IBOutlet var textField: NSTextField!
     
     @IBOutlet var userInput: NSTextField!
@@ -19,7 +18,7 @@ class ViewController: NSViewController {
     
     @IBOutlet var practiceLine: NSTextField!
     
-    
+    @IBOutlet var eventLabel: NSTextField!
     
     
     @IBAction func startClicked(_ sender: Any) {
@@ -27,39 +26,53 @@ class ViewController: NSViewController {
         userInput.stringValue = userInput.stringValue
         
         // Disable the userInput text field
-           userInput.isEnabled = false
-           
-           // Remove the placeholder text
-           userInput.placeholderString = nil
+        userInput.isEnabled = false
         
-           // Change the text color to a visible color
+        // Remove the placeholder text
+        userInput.placeholderString = nil
+        
+        // Change the text color to a visible color
         userInput.textColor = NSColor.white
         
+        // Unhide the practice line field
         practiceLine.isHidden = false
-        practiceLine.stringValue = userInput.stringValue
         
-
-
+        // create input string to pass into NSMutableAttributedString
+        let inputString = userInput.stringValue
+        practiceLine.stringValue = inputString
         
-    }
-    
-    
-    var flags: Any!
-    var keyDown: Any!
-    var inputString: String!
-//    @State private var userInput: String = ""
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
+        // Create an attributed string with the first character in a different color
+        let attributedString = NSMutableAttributedString(string: inputString)
+        attributedString.addAttribute(.foregroundColor, value: NSColor.red, range: NSRange(location: 0, length: 1))
+        
+        // Set the attributed string as the string value of the practiceLine text field
+        practiceLine.attributedStringValue = attributedString
+        
+        eventLabel.isHidden = false
+        
+        // begin listening for state of modifier keys
         flags = NSEvent.addLocalMonitorForEvents(matching: .flagsChanged) {
             self.flagsChanged(with: $0)
             return $0
         }
+        
+        // begin listening for key strokes
         keyDown = NSEvent.addLocalMonitorForEvents(matching: .keyDown) {
             self.keyDown(with: $0)
             return $0
         }
-//        textField.becomeFirstResponder()
+        
+    }
+    
+    // declare variables
+    var flags: Any!
+    var keyDown: Any!
+    var inputString: String!
+    
+    // MARK : Start of code
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
         userInput.becomeFirstResponder()
         userInput.placeholderString = "Enter custom text here"
         startButton.title = "Start"
@@ -85,11 +98,14 @@ class ViewController: NSViewController {
         print(event.window ?? "")
         print(event.windowNumber)
     }
+    
     override func keyDown(with event: NSEvent) {
-        textField.stringValue = "key = " + (event.charactersIgnoringModifiers
-            ?? "")
-        textField.stringValue += "\ncharacter = " + (event.characters ?? "")
+        
+        eventLabel.stringValue = "key = " + (event.charactersIgnoringModifiers ?? "")
+        eventLabel.stringValue += "\ncharacter = " + (event.characters ?? "")
+                                             
     }
+    
     override func flagsChanged(with event: NSEvent) {
         switch event.modifierFlags.intersection(.deviceIndependentFlagsMask) {
         case [.shift]:
