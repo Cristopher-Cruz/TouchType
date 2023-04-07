@@ -9,7 +9,7 @@ import Cocoa
 
 class ViewController: NSViewController {
     
-    @IBOutlet var containerView: NSView!
+    
     
     @IBOutlet var textField: NSTextField!
     
@@ -17,6 +17,7 @@ class ViewController: NSViewController {
     
     @IBOutlet var startButton: NSButton!
     
+    @IBOutlet var practiceLine: NSTextField!
     
     
     
@@ -34,12 +35,10 @@ class ViewController: NSViewController {
            // Change the text color to a visible color
         userInput.textColor = NSColor.white
         
-        // Enable layer backing for the containerView
-         containerView.wantsLayer = true
-         
-         // Set the background color of the containerView's layer
-         containerView.layer?.backgroundColor = NSColor.green.cgColor
+        practiceLine.isHidden = false
+        practiceLine.stringValue = userInput.stringValue
         
+
 
         
     }

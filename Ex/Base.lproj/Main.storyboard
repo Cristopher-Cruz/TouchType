@@ -738,17 +738,19 @@
                                     <action selector="startClicked:" target="XfG-lQ-9wD" id="ShL-cm-efm"/>
                                 </connections>
                             </button>
-                            <containerView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TLI-Tu-wm5">
-                                <rect key="frame" x="113" y="152" width="230" height="98"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <connections>
-                                    <segue destination="Xcx-25-2MX" kind="embed" identifier="toChild" id="4q5-GA-8hF"/>
-                                </connections>
-                            </containerView>
+                            <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tRl-Gq-sw6">
+                                <rect key="frame" x="60" y="166" width="317" height="56"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="practiceLine" id="rcO-ww-IHc">
+                                    <font key="font" metaFont="system" size="22"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
                         </subviews>
                     </view>
                     <connections>
-                        <outlet property="containerView" destination="TLI-Tu-wm5" id="OSD-sR-ZoG"/>
+                        <outlet property="practiceLine" destination="tRl-Gq-sw6" id="Kih-l1-Luo"/>
                         <outlet property="startButton" destination="5zT-j8-4MX" id="lPA-KN-Epd"/>
                         <outlet property="textField" destination="jJ0-9b-30g" id="teh-Pe-nie"/>
                         <outlet property="userInput" destination="l1E-vY-NSe" id="2vs-1Y-qYB"/>
@@ -757,19 +759,6 @@
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="75" y="655"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="t3N-Ln-zKi">
-            <objects>
-                <viewController id="Xcx-25-2MX" sceneMemberID="viewController">
-                    <view key="view" id="8jR-h5-PMJ">
-                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </view>
-                </viewController>
-                <customObject id="PZe-VU-FWc" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="50" y="1199"/>
         </scene>
     </scenes>
 </document>
