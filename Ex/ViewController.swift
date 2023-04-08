@@ -10,6 +10,7 @@ import Cocoa
 class ViewController: NSViewController {
     
     
+    
     @IBOutlet var textField: NSTextField!
     
     @IBOutlet var userInput: NSTextField!
@@ -20,8 +21,12 @@ class ViewController: NSViewController {
     
     @IBOutlet var eventLabel: NSTextField!
     
-    
+    var currentCharIndex = 0
+
     @IBAction func startClicked(_ sender: Any) {
+        // To keep track of the current character
+        currentCharIndex = 0
+
         // Set the string value to the entered text
         userInput.stringValue = userInput.stringValue
         
@@ -43,7 +48,7 @@ class ViewController: NSViewController {
         
         // Create an attributed string with the first character in a different color
         let attributedString = NSMutableAttributedString(string: inputString)
-        attributedString.addAttribute(.foregroundColor, value: NSColor.red, range: NSRange(location: 0, length: 1))
+        attributedString.addAttribute(.foregroundColor, value: NSColor.white, range: NSRange(location: 0, length: 1))
         
         // Set the attributed string as the string value of the practiceLine text field
         practiceLine.attributedStringValue = attributedString
@@ -100,11 +105,36 @@ class ViewController: NSViewController {
     }
     
     override func keyDown(with event: NSEvent) {
+        let typedChar = event.charactersIgnoringModifiers ?? ""
+        let practiceString = practiceLine.stringValue
         
-        eventLabel.stringValue = "key = " + (event.charactersIgnoringModifiers ?? "")
-        eventLabel.stringValue += "\ncharacter = " + (event.characters ?? "")
-                                             
+        // Check if the typed character matches the current character in the practice string
+        if typedChar == String(practiceString[practiceString.index(practiceString.startIndex, offsetBy: currentCharIndex)]) {
+            
+            // Create an attributed string with all the characters colored green up to the current character
+            let attributedString = NSMutableAttributedString(string: practiceString)
+            for i in 0..<currentCharIndex {
+                attributedString.addAttribute(.foregroundColor, value: NSColor.disabledControlTextColor, range: NSRange(location: i, length: 1))
+            }
+            
+            // Update the attributed string to mark the current character as typed correctly
+            attributedString.addAttribute(.foregroundColor, value: NSColor.disabledControlTextColor, range: NSRange(location: currentCharIndex, length: 1))
+            
+            // Check if there are more characters to be typed
+            if currentCharIndex < practiceString.count - 1 {
+                // Update the index of the current character to the next character in the practice string
+                currentCharIndex += 1
+                
+                // Mark the next character in the practice string as the current character to be typed
+//                attributedString.addAttribute(.foregroundColor, value: NSColor.red, range: NSRange(location: currentCharIndex, length: 1))
+            }
+            
+            // Set the attributed string as the string value of the practiceLine text field
+            practiceLine.attributedStringValue = attributedString
+        }
     }
+
+
     
     override func flagsChanged(with event: NSEvent) {
         switch event.modifierFlags.intersection(.deviceIndependentFlagsMask) {
