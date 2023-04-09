@@ -8,6 +8,8 @@
 import Cocoa
 
 class ViewController: NSViewController {
+    static let shared = ViewController()
+
     
     @IBOutlet var textField: NSTextField!
     @IBOutlet var userInput: NSTextField!
@@ -21,6 +23,7 @@ class ViewController: NSViewController {
         // To keep track of the current character
         currentCharIndex = 0
         
+
         // hide the inputfield and the start button
         userInput.isHidden = true
         startButton.isHidden = true
@@ -35,6 +38,10 @@ class ViewController: NSViewController {
         let inputString = userInput.stringValue
         practiceLine.stringValue = inputString
         
+        keyboardView.practiceLine = practiceLine.stringValue
+        keyboardView.currentCharIndex = 0
+
+        
         // Create an attributed string with the first character in a different color
         let attributedString = NSMutableAttributedString(string: inputString)
         attributedString.addAttribute(.foregroundColor, value: NSColor.blue, range: NSRange(location: 0, length: 1))
@@ -42,18 +49,13 @@ class ViewController: NSViewController {
         // Set the attributed string as the string value of the practiceLine text field
         practiceLine.attributedStringValue = attributedString
         
-        
-        // begin listening for state of modifier keys
-        flags = NSEvent.addLocalMonitorForEvents(matching: .flagsChanged) {
-            self.flagsChanged(with: $0)
-            return $0
-        }
-        
         // begin listening for key strokes
         keyDown = NSEvent.addLocalMonitorForEvents(matching: .keyDown) {
             self.keyDown(with: $0)
             return $0
         }
+        
+        keyboardView.becomeFirstResponder()
         
     }
     
@@ -100,6 +102,10 @@ class ViewController: NSViewController {
             
             // Set the attributed string as the string value of the practiceLine text field
             practiceLine.attributedStringValue = attributedString
+            
+            keyboardView.practiceLine = practiceLine.stringValue
+            keyboardView.currentCharIndex = currentCharIndex
+
         }
     }
 
