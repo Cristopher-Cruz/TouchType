@@ -709,30 +709,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tRl-Gq-sw6">
+                            <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tRl-Gq-sw6">
                                 <rect key="frame" x="60" y="215" width="317" height="35"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="practiceLine" id="rcO-ww-IHc">
                                     <font key="font" metaFont="system" size="22"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                            <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="avl-Rq-1gY">
-                                <rect key="frame" x="124" y="29" width="188" height="46"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="keyEventLabel" id="mRj-eW-tHd">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                            <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="l1E-vY-NSe" userLabel="Text Field">
-                                <rect key="frame" x="135" y="126" width="167" height="27"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="Fij-Ss-mG2">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
@@ -747,13 +728,32 @@
                                     <action selector="startClicked:" target="XfG-lQ-9wD" id="ShL-cm-efm"/>
                                 </connections>
                             </button>
+                            <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QV1-s9-cqi">
+                                <rect key="frame" x="130" y="145" width="176" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="jPK-fo-pg3">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <customView hidden="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KfO-PG-b4k" customClass="KeyboardView" customModule="Ex" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="480" height="172"/>
+                            </customView>
                         </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="KfO-PG-b4k" secondAttribute="trailing" id="0lI-Zi-rNa"/>
+                            <constraint firstItem="KfO-PG-b4k" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="QtU-39-4ci"/>
+                            <constraint firstItem="KfO-PG-b4k" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="70" id="RjW-0z-4fl"/>
+                            <constraint firstItem="KfO-PG-b4k" firstAttribute="top" secondItem="tRl-Gq-sw6" secondAttribute="bottom" constant="15" id="a9O-Dc-Rqg"/>
+                            <constraint firstAttribute="bottom" secondItem="KfO-PG-b4k" secondAttribute="bottom" constant="28" id="t9P-fN-6Dg"/>
+                        </constraints>
                     </view>
                     <connections>
-                        <outlet property="eventLabel" destination="avl-Rq-1gY" id="Osr-7e-xvF"/>
-                        <outlet property="practiceLine" destination="tRl-Gq-sw6" id="Kih-l1-Luo"/>
+                        <outlet property="keyboardView" destination="KfO-PG-b4k" id="ybg-fZ-M6a"/>
+                        <outlet property="practiceLine" destination="tRl-Gq-sw6" id="MmN-fO-JQP"/>
                         <outlet property="startButton" destination="5zT-j8-4MX" id="lPA-KN-Epd"/>
-                        <outlet property="userInput" destination="l1E-vY-NSe" id="2vs-1Y-qYB"/>
+                        <outlet property="userInput" destination="QV1-s9-cqi" id="d0e-yK-jQg"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
