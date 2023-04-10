@@ -8,39 +8,50 @@
 import Cocoa
 
 class ViewController: NSViewController {
+    // Create singleton instance
     static let shared = ViewController()
-
     
+    // Declare varibales and IBOutlets
+    var keyDown: Any!
+    var inputString: String!
+    var currentCharIndex = 0
     @IBOutlet var textField: NSTextField!
     @IBOutlet var userInput: NSTextField!
     @IBOutlet var practiceLine: NSTextField!
     @IBOutlet var startButton: NSButton!
-    
     @IBOutlet var keyboardView: KeyboardView!
-    var currentCharIndex = 0
-
+    
+    
+    // MARK: ViewDidLoad
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        userInput.becomeFirstResponder()
+        userInput.placeholderString = "Enter custom text here"
+        startButton.title = "Start"
+    }
+    
+    // MARK: startClicked action
     @IBAction func startClicked(_ sender: Any) {
         // To keep track of the current character
         currentCharIndex = 0
         
-
         // hide the inputfield and the start button
         userInput.isHidden = true
         startButton.isHidden = true
         
-        // Unhide the practice line field
+        // Show the practice line field
         practiceLine.isHidden = false
         
-        // Unhide the keyboard view
+        // Show the keyboard view
         keyboardView.isHidden = false
         
-        // create input string to pass into NSMutableAttributedString
+        // Create input string to pass into NSMutableAttributedString
         let inputString = userInput.stringValue
         practiceLine.stringValue = inputString
         
+        // Pass properties into kb view
         keyboardView.practiceLine = practiceLine.stringValue
         keyboardView.currentCharIndex = 0
-
         
         // Create an attributed string with the first character in a different color
         let attributedString = NSMutableAttributedString(string: inputString)
@@ -54,27 +65,15 @@ class ViewController: NSViewController {
             self.keyDown(with: $0)
             return $0
         }
-        
+        // Make keyboard view the first resoponder
         keyboardView.becomeFirstResponder()
         
     }
     
-    // declare variables
-    var flags: Any!
-    var keyDown: Any!
-    var inputString: String!
     
-    // MARK : Start of code
-    override func viewDidLoad() {
-        super.viewDidLoad()
 
-        userInput.becomeFirstResponder()
-        userInput.placeholderString = "Enter custom text here"
-        startButton.title = "Start"
-        
-    }
     
-    
+    // MARK: keyDown
     override func keyDown(with event: NSEvent) {
         let typedChar = event.charactersIgnoringModifiers ?? ""
         let practiceString = practiceLine.stringValue
@@ -96,7 +95,7 @@ class ViewController: NSViewController {
                 // Update the index of the current character to the next character in the practice string
                 currentCharIndex += 1
                 
-//                 Mark the next character in the practice string as the current character to be typed
+                // Mark the next character in the practice string as the current character to be typed
                 attributedString.addAttribute(.foregroundColor, value: NSColor.blue, range: NSRange(location: currentCharIndex, length: 1))
             }
             
@@ -105,15 +104,11 @@ class ViewController: NSViewController {
             
             keyboardView.practiceLine = practiceLine.stringValue
             keyboardView.currentCharIndex = currentCharIndex
-
         }
     }
 
 
     deinit {
-        if let flagsMonitor = flags {
-            NSEvent.removeMonitor(flagsMonitor)
-        }
         if let keyDownMonitor = keyDown {
             NSEvent.removeMonitor(keyDownMonitor)
         }

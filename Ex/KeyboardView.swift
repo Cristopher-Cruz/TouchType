@@ -5,7 +5,6 @@ class KeyboardView: NSView {
     var keyButtons = [[NSButton]]()
     
 
-    
     // The practice line string to synchronize with the keyboard view
     var practiceLine = "" {
         didSet {
@@ -15,15 +14,12 @@ class KeyboardView: NSView {
                     button.layer?.backgroundColor = NSColor.clear.cgColor
                 }
             }
-            
             // Set the current character index to 0
             currentCharIndex = 0
         }
     }
     
     // The current character index to highlight in blue
-
-    var count = 0
     var currentCharIndex = 0 {
         didSet {
             // Unhighlight the old current button
@@ -40,23 +36,19 @@ class KeyboardView: NSView {
         }
     }
 
-
-    
+    // Helper function to get the locate the typed character
     func getButtonRowAndColumnForCurrentChar(char: String) -> (Int, Int) {
         let currentChar = String(practiceLine[practiceLine.index(practiceLine.startIndex, offsetBy: currentCharIndex)])
-        let rowsOfChars = [["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"],
-                           ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"],
-                           ["a", "s", "d", "f", "g", "h", "j", "k", "l"],
+        let rowsOfChars = [["", " ", ""],
                            ["z", "x", "c", "v", "b", "n", "m"],
-                           ["", " ", ""]]
+                           ["a", "s", "d", "f", "g", "h", "j", "k", "l"],
+                           ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"],
+                           ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]]
         for (rowIndex, rowChars) in rowsOfChars.enumerated() {
             for (colIndex, tempstr) in rowChars.enumerated() {
-                if tempstr == currentChar {
-                    if char == currentChar {
-                        print("found it")
-                        return (rowIndex, colIndex)
-                    } else if char == tempstr.uppercased() {
-                        print("found it")
+                if tempstr.lowercased() == currentChar.lowercased() {
+                    if char.lowercased() == currentChar.lowercased() || char.uppercased() == tempstr.uppercased() {
+                        print("Found it")
                         return (rowIndex, colIndex)
                     }
                 }
@@ -78,17 +70,18 @@ class KeyboardView: NSView {
         }
     }
     
+    // MARK: Create the keyboard view
     override func awakeFromNib() {
         // Create the buttons for the keyboard view
         let buttonWidth: CGFloat = 40
         let buttonHeight: CGFloat = 40
         let buttonPadding: CGFloat = 8
         
-        let row1Chars = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]
-        let row2Chars = ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"]
+        let row1Chars = ["", " ", ""]
+        let row2Chars = ["Z", "X", "C", "V", "B", "N", "M"]
         let row3Chars = ["A", "S", "D", "F", "G", "H", "J", "K", "L"]
-        let row4Chars = ["Z", "X", "C", "V", "B", "N", "M"]
-        let row5Chars = ["", " ", ""]
+        let row4Chars = ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"]
+        let row5Chars = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]
         
         let rowsOfChars = [row1Chars, row2Chars, row3Chars, row4Chars, row5Chars]
         var xPos: CGFloat = buttonPadding

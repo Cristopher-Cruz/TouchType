@@ -709,14 +709,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tRl-Gq-sw6">
-                                <rect key="frame" x="60" y="215" width="317" height="35"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="practiceLine" id="rcO-ww-IHc">
-                                    <font key="font" metaFont="system" size="22"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5zT-j8-4MX">
                                 <rect key="frame" x="181" y="91" width="75" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -738,15 +730,23 @@
                                 </textFieldCell>
                             </textField>
                             <customView hidden="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KfO-PG-b4k" customClass="KeyboardView" customModule="Ex" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="480" height="172"/>
+                                <rect key="frame" x="0.0" y="-16" width="480" height="243"/>
                             </customView>
+                            <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tRl-Gq-sw6">
+                                <rect key="frame" x="60" y="235" width="317" height="35"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="practiceLine" id="rcO-ww-IHc">
+                                    <font key="font" metaFont="system" size="22"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="KfO-PG-b4k" secondAttribute="trailing" id="0lI-Zi-rNa"/>
                             <constraint firstItem="KfO-PG-b4k" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="QtU-39-4ci"/>
-                            <constraint firstItem="KfO-PG-b4k" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="70" id="RjW-0z-4fl"/>
-                            <constraint firstItem="KfO-PG-b4k" firstAttribute="top" secondItem="tRl-Gq-sw6" secondAttribute="bottom" constant="15" id="a9O-Dc-Rqg"/>
-                            <constraint firstAttribute="bottom" secondItem="KfO-PG-b4k" secondAttribute="bottom" constant="28" id="t9P-fN-6Dg"/>
+                            <constraint firstItem="KfO-PG-b4k" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="43" id="RjW-0z-4fl"/>
+                            <constraint firstItem="KfO-PG-b4k" firstAttribute="top" secondItem="tRl-Gq-sw6" secondAttribute="bottom" constant="8" id="a9O-Dc-Rqg"/>
+                            <constraint firstAttribute="bottom" secondItem="KfO-PG-b4k" secondAttribute="bottom" constant="-16" id="t9P-fN-6Dg"/>
                         </constraints>
                     </view>
                     <connections>
