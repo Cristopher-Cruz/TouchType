@@ -39,11 +39,11 @@ class KeyboardView: NSView {
     // Helper function to get the locate the typed character
     func getButtonRowAndColumnForCurrentChar(char: String) -> (Int, Int) {
         let currentChar = String(practiceLine[practiceLine.index(practiceLine.startIndex, offsetBy: currentCharIndex)])
-        let rowsOfChars = [["", " ", ""],
-                           ["z", "x", "c", "v", "b", "n", "m"],
-                           ["a", "s", "d", "f", "g", "h", "j", "k", "l"],
-                           ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"],
-                           ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]]
+        let rowsOfChars = [["fn", "cntrl", "option", "comm", " ", "comm", "option", "left", "down", "right"],
+                           ["shift", "z", "x", "c", "v", "b", "n", "m", ",", ".", "/", "shift"],
+                           ["caps", "a", "s", "d", "f", "g", "h", "j", "k", "l", ";", "'", "return"],
+                           ["tab", "q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "[", "]", "\\"],
+                           ["`", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "+", "delete"]]
         for (rowIndex, rowChars) in rowsOfChars.enumerated() {
             for (colIndex, tempstr) in rowChars.enumerated() {
                 if tempstr.lowercased() == currentChar.lowercased() {
@@ -73,37 +73,56 @@ class KeyboardView: NSView {
     // MARK: Create the keyboard view
     override func awakeFromNib() {
         // Create the buttons for the keyboard view
-        let buttonWidth: CGFloat = 40
-        let buttonHeight: CGFloat = 40
-        let buttonPadding: CGFloat = 8
+        var buttonWidth: CGFloat = 55
+        var buttonHeight: CGFloat = 55
+        var buttonPadding: CGFloat = 0
         
-        let row1Chars = ["", " ", ""]
-        let row2Chars = ["Z", "X", "C", "V", "B", "N", "M"]
-        let row3Chars = ["A", "S", "D", "F", "G", "H", "J", "K", "L"]
-        let row4Chars = ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"]
-        let row5Chars = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]
+        let row5Chars = [" "]
+        let row4Chars = ["shift", "z", "x", "c", "v", "b", "n", "m", ",", ".", "/", "shift"]
+        let row3Chars = ["caps", "a", "s", "d", "f", "g", "h", "j", "k", "l", ";", "'", "return"]
+        let row2Chars = ["tab", "q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "[", "]", "\\"]
+        let row1Chars = ["`", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "+", "delete"]
         
-        let rowsOfChars = [row1Chars, row2Chars, row3Chars, row4Chars, row5Chars]
+        let rowsOfChars = [row5Chars, row4Chars, row3Chars, row2Chars, row1Chars]
+        
+        // calculate the center position for the space button
+        let spaceButtonXPos = (buttonWidth + buttonPadding) * CGFloat(row5Chars.count)/2 - buttonWidth/2
         var xPos: CGFloat = buttonPadding
         var yPos: CGFloat = buttonPadding
         
         for rowChars in rowsOfChars {
-              var rowButtons = [NSButton]()
-              for char in rowChars {
-                  let button = NSButton(frame: NSRect(x: xPos, y: yPos, width: buttonWidth, height: buttonHeight))
-                  button.title = char
-                  button.bezelStyle = .rounded
-                  button.layer?.backgroundColor = NSColor.clear.cgColor
-                  addSubview(button)
-                  rowButtons.append(button)
+            var rowButtons = [NSButton]()
+            for char in rowChars {
+                let buttonWidthForChar: CGFloat // set custom widths for better layout
+                switch char {
+                case " ":
+                    buttonWidthForChar = buttonWidth * 8 + buttonPadding // space button
+                case "shift":
+                    buttonWidthForChar = buttonWidth * 2 + buttonPadding // custom width for shift button
+                case "caps":
+                    buttonWidthForChar = buttonWidth * 1.5 + buttonPadding
+                case "return":
+                    buttonWidthForChar = buttonWidth * 1.5 + buttonPadding
+                default:
+                    buttonWidthForChar = buttonWidth // default width for all other buttons
+                }
 
-                  xPos += buttonWidth + buttonPadding
-              }
-              keyButtons.append(rowButtons)
-              xPos = buttonPadding
-              yPos += buttonHeight + buttonPadding
-          }
-      }
+                let button = (char == " ") ? NSButton(frame: NSRect(x: xPos+CGFloat(165), y: yPos, width: buttonWidthForChar, height: buttonHeight)) : NSButton(frame: NSRect(x: xPos, y: yPos, width: buttonWidthForChar, height: buttonHeight)) // increase width for space button
+//
+//                let button = NSButton(frame: NSRect(x: xPos, y: yPos, width: buttonWidthForChar, height: buttonHeight))
+                button.title = char
+                button.bezelStyle = .regularSquare
+                button.layer?.backgroundColor = NSColor.clear.cgColor
+                addSubview(button)
+                rowButtons.append(button)
+                xPos += buttonWidthForChar + buttonPadding
+            }
+            keyButtons.append(rowButtons)
+            xPos = buttonPadding
+            yPos += buttonHeight + buttonPadding
+        }
+    }
+
     
     
     override func keyDown(with event: NSEvent) {
@@ -120,3 +139,4 @@ class KeyboardView: NSView {
         }
     }
 }
+
