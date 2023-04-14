@@ -736,12 +736,34 @@
                             <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tRl-Gq-sw6">
                                 <rect key="frame" x="341" y="526" width="317" height="26"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="practiceLine" id="rcO-ww-IHc">
+                                <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" title="practiceLine" id="rcO-ww-IHc">
                                     <font key="font" metaFont="system" size="22"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
+                            <button hidden="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c92-1R-A8Z">
+                                <rect key="frame" x="815" y="537" width="69" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="push" title="Reset" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="viP-bc-MIX">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                    <connections>
+                                        <action selector="resetClicked:" target="XfG-lQ-9wD" id="m77-yW-8sI"/>
+                                    </connections>
+                                </buttonCell>
+                            </button>
+                            <button hidden="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QOt-EN-GSw">
+                                <rect key="frame" x="802" y="506" width="90" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="push" title="New Line" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="5IE-rY-zr8">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="newLineClicked:" target="XfG-lQ-9wD" id="kt7-Af-uQS"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="KfO-PG-b4k" secondAttribute="bottom" constant="95" id="Gg6-sh-ED8"/>
@@ -751,7 +773,9 @@
                     </view>
                     <connections>
                         <outlet property="keyboardView" destination="KfO-PG-b4k" id="ybg-fZ-M6a"/>
+                        <outlet property="newLineButton" destination="QOt-EN-GSw" id="s3j-WT-Z22"/>
                         <outlet property="practiceLine" destination="tRl-Gq-sw6" id="MmN-fO-JQP"/>
+                        <outlet property="resetButton" destination="c92-1R-A8Z" id="wzJ-y7-Kq1"/>
                         <outlet property="startButton" destination="5zT-j8-4MX" id="lPA-KN-Epd"/>
                         <outlet property="userInput" destination="QV1-s9-cqi" id="d0e-yK-jQg"/>
                     </connections>

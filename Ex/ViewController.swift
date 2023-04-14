@@ -13,6 +13,7 @@ class ViewController: NSViewController {
     // Create singleton instance
     static let shared = ViewController()
     
+    @IBOutlet var resetButton: NSButton!
     // Declare varibales and IBOutlets
     var keyDown: Any!
     var inputString: String!
@@ -23,6 +24,7 @@ class ViewController: NSViewController {
     @IBOutlet var startButton: NSButton!
     @IBOutlet var keyboardView: KeyboardView!
     
+    @IBOutlet var newLineButton: NSButton!
     
     // MARK: ViewDidLoad
     override func viewDidLoad() {
@@ -41,11 +43,14 @@ class ViewController: NSViewController {
         userInput.isHidden = true
         startButton.isHidden = true
         
-        // Show the practice line field
+        // Show the practice line field and reset
         practiceLine.isHidden = false
+        resetButton.isHidden = false
+        newLineButton.isHidden = false
         
         // Show the keyboard view
         keyboardView.isHidden = false
+        
         
         // Create input string to pass into NSMutableAttributedString
         let inputString = userInput.stringValue
@@ -63,13 +68,54 @@ class ViewController: NSViewController {
         practiceLine.attributedStringValue = attributedString
         
         // begin listening for key strokes
-        keyDown = NSEvent.addLocalMonitorForEvents(matching: .keyDown) {
-            self.keyDown(with: $0)
+        keyDown = NSEvent.addLocalMonitorForEvents(matching: .keyDown) { [weak self] in
+            self?.keyDown(with: $0)
             return $0
         }
-        // Make keyboard view the first resoponder
-        keyboardView.becomeFirstResponder()
         
+    }
+    
+    @IBAction func resetClicked(_ sender: Any) {
+        currentCharIndex = 0
+        keyboardView.currentCharIndex = 0
+        let attributedString = NSMutableAttributedString(string: practiceLine.stringValue)
+        attributedString.addAttribute(.foregroundColor, value: NSColor.blue, range: NSRange(location: 0, length: 1))
+        practiceLine.attributedStringValue = attributedString
+        // begin listening for key strokes
+        keyDown = NSEvent.addLocalMonitorForEvents(matching: .keyDown) { [weak self] in
+            self?.keyDown(with: $0)
+            return $0
+        }
+    }
+    
+    @IBAction func newLineClicked(_ sender: Any) {
+        let alert = NSAlert()
+        alert.messageText = "Enter a new practice line"
+        alert.addButton(withTitle: "OK")
+        alert.addButton(withTitle: "Cancel")
+        
+        let inputTextField = NSTextField(frame: NSRect(x: 0, y: 0, width: 200, height: 24))
+        alert.accessoryView = inputTextField
+        
+        let response = alert.runModal()
+        if response == .alertFirstButtonReturn {
+            practiceLine.stringValue = inputTextField.stringValue
+        }
+        
+        // begin listening for key strokes
+        keyDown = NSEvent.addLocalMonitorForEvents(matching: .keyDown) { [weak self] in
+            self?.keyDown(with: $0)
+            return $0
+        }
+        
+        
+    }
+    
+    // MARK: NSAlert
+    func showPopup() {
+        let alert = NSAlert()
+        alert.messageText = "Done!"
+        alert.runModal()
     }
     
     
@@ -79,6 +125,8 @@ class ViewController: NSViewController {
     override func keyDown(with event: NSEvent) {
         let typedChar = event.charactersIgnoringModifiers ?? ""
         let practiceString = practiceLine.stringValue
+        
+        
         
         // Check if the typed character matches the current character in the practice string
         if typedChar == String(practiceString[practiceString.index(practiceString.startIndex, offsetBy: currentCharIndex)]) {
@@ -92,8 +140,20 @@ class ViewController: NSViewController {
             // Update the attributed string to mark the current character as typed correctly
             attributedString.addAttribute(.foregroundColor, value: NSColor.disabledControlTextColor, range: NSRange(location: currentCharIndex, length: 1))
             
+            // Check if the string is done
+            if currentCharIndex == practiceString.count-1 {
+                showPopup() // Trigger pop-up text
+                currentCharIndex = 0
+                keyboardView.currentCharIndex = 0
+                print("Done") // For debugging
+                if let keyDown = keyDown {
+                    NSEvent.removeMonitor(keyDown)
+                    self.keyDown = nil
+                }
+            }
+            
             // Check if there are more characters to be typed
-            if currentCharIndex < practiceString.count - 1 {
+            else if currentCharIndex < practiceString.count - 1 {
                 // Update the index of the current character to the next character in the practice string
                 currentCharIndex += 1
                 
@@ -106,7 +166,9 @@ class ViewController: NSViewController {
             
             keyboardView.practiceLine = practiceLine.stringValue
             keyboardView.currentCharIndex = currentCharIndex
+
         }
+        
     }
 
 
