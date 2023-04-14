@@ -39,7 +39,7 @@ class KeyboardView: NSView {
     // Helper function to get the locate the typed character
     func getButtonRowAndColumnForCurrentChar(char: String) -> (Int, Int) {
         let currentChar = String(practiceLine[practiceLine.index(practiceLine.startIndex, offsetBy: currentCharIndex)])
-        let rowsOfChars = [["fn", "cntrl", "option", "comm", " ", "comm", "option", "left", "down", "right"],
+        let rowsOfChars = [[" "],
                            ["shift", "z", "x", "c", "v", "b", "n", "m", ",", ".", "/", "shift"],
                            ["caps", "a", "s", "d", "f", "g", "h", "j", "k", "l", ";", "'", "return"],
                            ["tab", "q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "[", "]", "\\"],

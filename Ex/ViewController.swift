@@ -18,13 +18,18 @@ class ViewController: NSViewController {
     var keyDown: Any!
     var inputString: String!
     var currentCharIndex = 0
+    var charCount = 0
+    var startTime: Date?
+    var endTime: Date?
+    
     @IBOutlet var textField: NSTextField!
     @IBOutlet var userInput: NSTextField!
     @IBOutlet var practiceLine: NSTextField!
     @IBOutlet var startButton: NSButton!
     @IBOutlet var keyboardView: KeyboardView!
-    
     @IBOutlet var newLineButton: NSButton!
+    @IBOutlet var wpmLabel: NSTextField!
+    
     
     // MARK: ViewDidLoad
     override func viewDidLoad() {
@@ -33,11 +38,13 @@ class ViewController: NSViewController {
         userInput.placeholderString = "Enter custom text here"
         startButton.title = "Start"
     }
+
     
     // MARK: startClicked action
     @IBAction func startClicked(_ sender: Any) {
         // To keep track of the current character
         currentCharIndex = 0
+        wpmLabel.stringValue = "0 WPM"
         
         // hide the inputfield and the start button
         userInput.isHidden = true
@@ -47,6 +54,7 @@ class ViewController: NSViewController {
         practiceLine.isHidden = false
         resetButton.isHidden = false
         newLineButton.isHidden = false
+        wpmLabel.isHidden = false
         
         // Show the keyboard view
         keyboardView.isHidden = false
@@ -73,9 +81,12 @@ class ViewController: NSViewController {
             return $0
         }
         
+        startTime = Date()
+        
     }
     
     @IBAction func resetClicked(_ sender: Any) {
+        wpmLabel.stringValue = "0"
         currentCharIndex = 0
         keyboardView.currentCharIndex = 0
         let attributedString = NSMutableAttributedString(string: practiceLine.stringValue)
@@ -89,6 +100,7 @@ class ViewController: NSViewController {
     }
     
     @IBAction func newLineClicked(_ sender: Any) {
+        wpmLabel.stringValue = "0"
         let alert = NSAlert()
         alert.messageText = "Enter a new practice line"
         alert.addButton(withTitle: "OK")
@@ -113,14 +125,26 @@ class ViewController: NSViewController {
     
     // MARK: NSAlert
     func showPopup() {
-        let alert = NSAlert()
-        alert.messageText = "Done!"
-        alert.runModal()
+        endTime = Date()
+        if let startTime = startTime, let endTime = endTime {
+            let elapsedTime = endTime.timeIntervalSince(startTime) // in seconds
+            let wpm = Int(Double(charCount) / elapsedTime * 60 / 4) // assuming 4 characters per word
+            wpmLabel.stringValue = String(wpm)
+            let wpmText = "WPM: \(wpm)"
+            let alert = NSAlert()
+            alert.messageText = "Done!\n\(wpmText)"
+            alert.runModal()
+        } else {
+            let alert = NSAlert()
+            alert.messageText = "Error: Could not calculate WPM."
+            alert.runModal()
+        }
+        
     }
-    
-    
+
 
     
+
     // MARK: keyDown
     override func keyDown(with event: NSEvent) {
         let typedChar = event.charactersIgnoringModifiers ?? ""
@@ -130,6 +154,7 @@ class ViewController: NSViewController {
         
         // Check if the typed character matches the current character in the practice string
         if typedChar == String(practiceString[practiceString.index(practiceString.startIndex, offsetBy: currentCharIndex)]) {
+            charCount += 1
             
             // Create an attributed string with all the characters colored green up to the current character
             let attributedString = NSMutableAttributedString(string: practiceString)
@@ -142,6 +167,7 @@ class ViewController: NSViewController {
             
             // Check if the string is done
             if currentCharIndex == practiceString.count-1 {
+                practiceLine.attributedStringValue = attributedString
                 showPopup() // Trigger pop-up text
                 currentCharIndex = 0
                 keyboardView.currentCharIndex = 0
@@ -151,7 +177,6 @@ class ViewController: NSViewController {
                     self.keyDown = nil
                 }
             }
-            
             // Check if there are more characters to be typed
             else if currentCharIndex < practiceString.count - 1 {
                 // Update the index of the current character to the next character in the practice string
@@ -170,7 +195,6 @@ class ViewController: NSViewController {
         }
         
     }
-
 
     deinit {
         if let keyDownMonitor = keyDown {

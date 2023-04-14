@@ -743,7 +743,7 @@
                                 </textFieldCell>
                             </textField>
                             <button hidden="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c92-1R-A8Z">
-                                <rect key="frame" x="815" y="537" width="69" height="32"/>
+                                <rect key="frame" x="897" y="553" width="69" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="push" title="Reset" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="viP-bc-MIX">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -753,8 +753,17 @@
                                     </connections>
                                 </buttonCell>
                             </button>
+                            <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IhA-vq-Qu2">
+                                <rect key="frame" x="59" y="564" width="72" height="16"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="Wpm Label" placeholderString="wpm" id="IU8-hG-zlB">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
                             <button hidden="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QOt-EN-GSw">
-                                <rect key="frame" x="802" y="506" width="90" height="32"/>
+                                <rect key="frame" x="897" y="521" width="90" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="push" title="New Line" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="5IE-rY-zr8">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -778,6 +787,7 @@
                         <outlet property="resetButton" destination="c92-1R-A8Z" id="wzJ-y7-Kq1"/>
                         <outlet property="startButton" destination="5zT-j8-4MX" id="lPA-KN-Epd"/>
                         <outlet property="userInput" destination="QV1-s9-cqi" id="d0e-yK-jQg"/>
+                        <outlet property="wpmLabel" destination="IhA-vq-Qu2" id="wSQ-an-FtQ"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
