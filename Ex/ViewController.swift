@@ -50,7 +50,7 @@ class ViewController: NSViewController {
         userInput.isHidden = true
         startButton.isHidden = true
         
-        // Show the practice line field and reset
+        // Unhide necessary items
         practiceLine.isHidden = false
         resetButton.isHidden = false
         newLineButton.isHidden = false
@@ -85,6 +85,7 @@ class ViewController: NSViewController {
         
     }
     
+    // MARK: Reset
     @IBAction func resetClicked(_ sender: Any) {
         wpmLabel.stringValue = "0"
         currentCharIndex = 0
@@ -99,6 +100,7 @@ class ViewController: NSViewController {
         }
     }
     
+    // MARK: New line
     @IBAction func newLineClicked(_ sender: Any) {
         wpmLabel.stringValue = "0"
         let alert = NSAlert()
@@ -154,7 +156,7 @@ class ViewController: NSViewController {
         
         // Check if the typed character matches the current character in the practice string
         if typedChar == String(practiceString[practiceString.index(practiceString.startIndex, offsetBy: currentCharIndex)]) {
-            charCount += 1
+            charCount += 1 // for wpm calculations
             
             // Create an attributed string with all the characters colored green up to the current character
             let attributedString = NSMutableAttributedString(string: practiceString)
@@ -189,13 +191,15 @@ class ViewController: NSViewController {
             // Set the attributed string as the string value of the practiceLine text field
             practiceLine.attributedStringValue = attributedString
             
+            // pass values to keyboard view
             keyboardView.practiceLine = practiceLine.stringValue
             keyboardView.currentCharIndex = currentCharIndex
 
         }
         
     }
-
+    
+    // deinitialize key monitor
     deinit {
         if let keyDownMonitor = keyDown {
             NSEvent.removeMonitor(keyDownMonitor)

@@ -36,7 +36,7 @@ class KeyboardView: NSView {
         }
     }
 
-    // Helper function to get the locate the typed character
+    // Helper function to get the index of the typed character
     func getButtonRowAndColumnForCurrentChar(char: String) -> (Int, Int) {
         let currentChar = String(practiceLine[practiceLine.index(practiceLine.startIndex, offsetBy: currentCharIndex)])
         let rowsOfChars = [[" "],
@@ -96,9 +96,9 @@ class KeyboardView: NSView {
                 let buttonWidthForChar: CGFloat // set custom widths for better layout
                 switch char {
                 case " ":
-                    buttonWidthForChar = buttonWidth * 8 + buttonPadding // space button
+                    buttonWidthForChar = buttonWidth * 8 + buttonPadding
                 case "shift":
-                    buttonWidthForChar = buttonWidth * 2 + buttonPadding // custom width for shift button
+                    buttonWidthForChar = buttonWidth * 2 + buttonPadding
                 case "caps":
                     buttonWidthForChar = buttonWidth * 1.5 + buttonPadding
                 case "return":
@@ -108,8 +108,6 @@ class KeyboardView: NSView {
                 }
 
                 let button = (char == " ") ? NSButton(frame: NSRect(x: xPos+CGFloat(165), y: yPos, width: buttonWidthForChar, height: buttonHeight)) : NSButton(frame: NSRect(x: xPos, y: yPos, width: buttonWidthForChar, height: buttonHeight)) // increase width for space button
-//
-//                let button = NSButton(frame: NSRect(x: xPos, y: yPos, width: buttonWidthForChar, height: buttonHeight))
                 button.title = char
                 button.bezelStyle = .regularSquare
                 button.layer?.backgroundColor = NSColor.clear.cgColor
@@ -135,7 +133,6 @@ class KeyboardView: NSView {
             let button = keyButtons[rowIndex][colIndex]
             // Increment the current character index
             currentCharIndex += 1
-    
         }
     }
 }
