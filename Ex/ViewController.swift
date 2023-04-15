@@ -127,10 +127,14 @@ class ViewController: NSViewController {
     
     // MARK: NSAlert
     func showPopup() {
+        if let keyDown = keyDown {
+            NSEvent.removeMonitor(keyDown)
+            self.keyDown = nil
+        }
         endTime = Date()
         if let startTime = startTime, let endTime = endTime {
             let elapsedTime = endTime.timeIntervalSince(startTime) // in seconds
-            let wpm = Int(Double(charCount) / elapsedTime * 60 / 4) // assuming 4 characters per word
+            let wpm = Int(Double(charCount) / elapsedTime * 60 / 2) // assuming 4 characters per word
             wpmLabel.stringValue = String(wpm)
             let wpmText = "WPM: \(wpm)"
             let alert = NSAlert()
@@ -141,6 +145,7 @@ class ViewController: NSViewController {
             alert.messageText = "Error: Could not calculate WPM."
             alert.runModal()
         }
+        
         
     }
 
@@ -169,15 +174,16 @@ class ViewController: NSViewController {
             
             // Check if the string is done
             if currentCharIndex == practiceString.count-1 {
+                if let keyDown = keyDown {
+                    NSEvent.removeMonitor(keyDown)
+                    self.keyDown = nil
+                }
                 practiceLine.attributedStringValue = attributedString
                 showPopup() // Trigger pop-up text
                 currentCharIndex = 0
                 keyboardView.currentCharIndex = 0
                 print("Done") // For debugging
-                if let keyDown = keyDown {
-                    NSEvent.removeMonitor(keyDown)
-                    self.keyDown = nil
-                }
+
             }
             // Check if there are more characters to be typed
             else if currentCharIndex < practiceString.count - 1 {
