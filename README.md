@@ -11,8 +11,8 @@ Lightweight typing practice application for macOS!
 - Core Graphics <br>
 
 # Special Feautures:
-- Custom Practice Input <br>
 - Words per Minute calculation <br>
+- Custom Practice Input <br>
 - Minimalist design <br>
 
 # Forthcoming features:
