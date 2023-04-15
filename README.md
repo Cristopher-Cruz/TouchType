@@ -16,7 +16,7 @@ Lightweight typing practice application for macOS!
 - Minimalist design <br>
 
 # Forthcoming features:
-- Data persistance(Core Data): save custom practice sets <br>
+- Data persistence(Core Data): save custom practice sets <br>
 - Preset practice lessons for touch typing <br>
 - Preset practice lessons for code typing <br>
 - Multiple keyboard layout options <br>
