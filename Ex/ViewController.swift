@@ -102,7 +102,11 @@ class ViewController: NSViewController {
     
     // MARK: New line
     @IBAction func newLineClicked(_ sender: Any) {
-        wpmLabel.stringValue = "0"
+        if let keyDown = keyDown {
+            NSEvent.removeMonitor(keyDown)
+            self.keyDown = nil
+        }
+        wpmLabel.stringValue = "0 WPM"
         let alert = NSAlert()
         alert.messageText = "Enter a new practice line"
         alert.addButton(withTitle: "OK")
@@ -113,7 +117,21 @@ class ViewController: NSViewController {
         
         let response = alert.runModal()
         if response == .alertFirstButtonReturn {
-            practiceLine.stringValue = inputTextField.stringValue
+            
+            // Create input string to pass into NSMutableAttributedString
+            let inputString = inputTextField.stringValue
+            practiceLine.stringValue = inputString
+            
+            // Pass properties into kb view
+            keyboardView.practiceLine = practiceLine.stringValue
+            keyboardView.currentCharIndex = 0
+            
+            // Create an attributed string with the first character in a different color
+            let attributedString = NSMutableAttributedString(string: inputString)
+            attributedString.addAttribute(.foregroundColor, value: NSColor.blue, range: NSRange(location: 0, length: 1))
+            
+            // Set the attributed string as the string value of the practiceLine text field
+            practiceLine.attributedStringValue = attributedString
         }
         
         // begin listening for key strokes
@@ -134,7 +152,7 @@ class ViewController: NSViewController {
         endTime = Date()
         if let startTime = startTime, let endTime = endTime {
             let elapsedTime = endTime.timeIntervalSince(startTime) // in seconds
-            let wpm = Int(Double(charCount) / elapsedTime * 60 / 2) // assuming 4 characters per word
+            let wpm = Int(Double(charCount) / elapsedTime * 60 / 4) // assuming 4 characters per word
             wpmLabel.stringValue = String(wpm)
             let wpmText = "WPM: \(wpm)"
             let alert = NSAlert()
